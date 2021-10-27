@@ -194,6 +194,7 @@ curl http://localhost:3000/post/{postId}
 ---
 
 ## 문서 생성
+- title, content는 필수 값입니다.
 ```
 curl -X POST http://localhost:3000/post -d '{"title": "wanted", "content": "wanted wecode pre onboarding course"}' -H "Content-Type: application/json" -H "Authorization: Bearer {token}"
 
