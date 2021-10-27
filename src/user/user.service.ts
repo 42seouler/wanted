@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -22,15 +22,19 @@ export class UserService {
     });
   }
 
-  async findOne(id: string) {
-    const user = await this.userRepository.findOne(id);
-    if (!user) {
-      throw new NotFoundException(`User #${id} not found`);
-    }
-    return user;
+  async findOne(name: string) {
+    return await User.findByName(name);
   }
 
   async create(createUserDto: CreateUserDto) {
+    const existingUser = await User.findByName(createUserDto.username);
+    if (existingUser) {
+      throw new HttpException(
+        '중복 된 사용자 아이디입니다.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    // const user = this.userRepository.create(createUserDto);
     const encodedPassword = await bcrypt.hash(createUserDto.password, 10);
     const user = this.userRepository.create({
       ...createUserDto,
@@ -41,7 +45,7 @@ export class UserService {
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     const user = await this.userRepository.preload({
-      id: +id,
+      userId: +id,
       ...updateUserDto,
     });
     if (!user) {

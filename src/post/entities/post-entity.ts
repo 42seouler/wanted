@@ -3,30 +3,29 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from '../../user/entities/user.entity';
 
 @Entity()
-export class User extends BaseEntity {
+export class Post extends BaseEntity {
   @PrimaryGeneratedColumn()
-  userId: number;
+  id: number;
 
-  @Column({ unique: true })
-  username: string;
+  @ManyToOne(type => User)
+  author: User;
 
   @Column()
-  password: string;
+  title: string;
+
+  @Column()
+  content: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
   UpdatedAt: Date;
-
-  static findByName(username: string) {
-    return this.createQueryBuilder('user')
-      .where('user.username = :username', { username })
-      .getOne();
-  }
 }
