@@ -105,9 +105,19 @@ export class PostService {
     const post = await this.postRepository.findOne(id, {
       relations: ['author'],
     });
+    if (!post) {
+      throw new NotFoundException(`Post #${id} not found`);
+    }
     if (user.userId !== post.author.userId) {
       throw new BadRequestException('게시글은 작성자만 삭제 할 수 있습니다.');
     }
-    return this.postRepository.remove(post);
+    const deletePost = await this.postRepository.remove(post);
+    return {
+      title: deletePost.title,
+      author: deletePost.author.username,
+      content: deletePost.content,
+      createdAt: deletePost.createdAt,
+      UpdatedAt: deletePost.UpdatedAt,
+    };
   }
 }

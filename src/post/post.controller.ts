@@ -3,12 +3,13 @@ import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 @Controller('post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
   @Get()
-  findAll(@Query() paginationQuery) {
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
     return this.postService.findAll(paginationQuery);
   }
 

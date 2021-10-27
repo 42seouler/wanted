@@ -17,8 +17,8 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  findAll(@Query() paginationQuery) {
-    return this.userService.findAll(paginationQuery);
+  findAll() {
+    return this.userService.findAll();
   }
 
   @Get(':id')
