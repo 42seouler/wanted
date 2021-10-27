@@ -9,7 +9,7 @@ import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 export class PostController {
   constructor(private readonly postService: PostService) {}
   @Get()
-  findAll(@Query() paginationQuery: PaginationQueryDto) {
+  findAll(@Query() paginationQuery) {
     return this.postService.findAll(paginationQuery);
   }
 
