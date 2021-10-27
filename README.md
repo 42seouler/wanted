@@ -10,7 +10,9 @@ Passport를 사용해서 유저의 인가, 인증을 구현했습니다. JWT 만
 
 3.글의 확인, 글의 목록은 별도의 인증없이 글을 확인 할 수 있도록 했습니다.
 
-4.테스트의 편의를 위해 유저 목록은 별도의 인증 없이 제공합니다. 또한 비밀번호는 [NestJs 공식 Hashing문서](https://docs.nestjs.com/security/encryption-and-hashing)를 통해 암호화했고 비밀번호 또한 암호화를 확인하기 위해 같이 제공됩니다.
+4.테스트의 편의를 위해 유저 목록은 별도의 인증 없이 제공합니다. 또한 비밀번호는 [NestJs 공식 Hashing문서](https://docs.nestjs.com/security/encryption-and-hashing)를 통해 암호화했고 비밀번호 또한 암호화를 확인하기 위해 같이 제공됩니다. 
+
+5.별도의 UnitTest는 없습니다. (프리온보딩 백엔드 코스를 접수 마감일 1일 전에 알게 되어서 급하게 과제만 진행 했습니다.)
 
 #### 라이브러리
 
@@ -97,7 +99,6 @@ curl -X POST http://localhost:3000/user -d '{"username": "wanted", "password": "
 ## 로그인
 ```
 curl -X POST http://localhost:3000/auth/login -d '{"username": "wanted", "password": "backend"}' -H "Content-Type: application/json"
-
 ```
 
 #### 로그인 성공시(STATUS 200)
@@ -197,7 +198,6 @@ curl http://localhost:3000/post/{postId}
 - title, content는 필수 값입니다.
 ```
 curl -X POST http://localhost:3000/post -d '{"title": "wanted", "content": "wanted wecode pre onboarding course"}' -H "Content-Type: application/json" -H "Authorization: Bearer {token}"
-
 ```
 #### 요청 성공시(STATUS 201)
 ```
@@ -250,7 +250,6 @@ curl -X PATCH http://localhost:3000/post/{postId} -d '{"title": "원티드", "co
 ## 문서 삭제
 ```
 curl -X DELETE http://localhost:3000/post/{postId} -H "Authorization: Bearer {token}"
-
 ```
 
 #### 요청 성공(STATUS 200)
