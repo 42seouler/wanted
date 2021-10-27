@@ -74,8 +74,10 @@ npm run start:dev
 # 공개용 API
 ---
 ## 가입하기
+- 글쓴이 외 수정,삭제 기능을 테스트하기 위해 두개의 유저 생성
 ```
 curl -X POST http://localhost:3000/user -d '{"username": "wanted", "password": "backend"}' -H "Content-Type: application/json"
+curl -X POST http://localhost:3000/user -d '{"username": "wecode", "password": "wecode"}' -H "Content-Type: application/json"
 ```
 
 #### 요청 성공시 (STATUS 201)
